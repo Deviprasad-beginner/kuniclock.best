@@ -144,36 +144,21 @@ function ClockContent() {
   };
 
   return (
-    <main
-      style={{
-        position: 'relative',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minHeight: 'calc(100vh - 60px)',
-        padding: '24px 24px',
-        gap: '32px',
-      }}
-    >
-      <div style={{ position: 'absolute', top: '24px', right: '28px', fontSize: '15px', fontWeight: 600, color: 'var(--text-muted)', fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.05em' }}>
+    <main className="relative flex flex-col items-center justify-center min-h-[calc(100vh-60px)] px-6 py-6 gap-8">
+      <div className="absolute top-6 right-7 text-[15px] font-semibold text-muted font-mono tracking-wider">
         {currentTimeDisplay}
       </div>
       {/* Target & Streak Display */}
       {!statsLoading && (
-        <div className="glass-panel" style={{
-          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px',
-          width: '100%', maxWidth: '380px', padding: '20px',
-          borderRadius: 'var(--radius-lg)', zIndex: 10,
-        }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', fontSize: '13px', fontWeight: 500 }}>
-            <span style={{ color: 'var(--text-secondary)' }}>Daily Target</span>
-            <span style={{ color: 'var(--text-primary)', display: 'flex', gap: '8px', alignItems: 'center' }}>
+        <div className="glass-panel flex flex-col items-center gap-2 w-full max-w-[380px] p-5 rounded-lg z-10">
+          <div className="flex justify-between w-full text-[13px] font-medium">
+            <span className="text-secondary">Daily Target</span>
+            <span className="text-primary flex gap-2 items-center">
               <span>{formatSecs(effectiveTotal)} / {formatSecs(targetSeconds)}</span>
-              {streak > 0 && <span style={{ color: '#f97316', fontWeight: 600, fontSize: '14px' }}>🔥 {streak}</span>}
+              {streak > 0 && <span className="text-orange-500 font-semibold text-sm">🔥 {streak}</span>}
             </span>
           </div>
-          <div style={{ width: '100%', height: '8px', borderRadius: '4px', backgroundColor: 'var(--bg-elevated)', overflow: 'hidden' }}>
+          <div className="w-full h-2 rounded bg-elevated overflow-hidden">
             <div style={{
               height: '100%',
               width: `${targetProgress}%`,
@@ -185,53 +170,28 @@ function ClockContent() {
         </div>
       )}
 
-      <div style={{ textAlign: 'center', zIndex: 10 }}>
-        <h1
-          style={{
-            fontSize: '44px',
-            fontWeight: 800,
-            letterSpacing: '-0.04em',
-            marginBottom: '8px',
-            background: 'linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            filter: 'drop-shadow(0 4px 12px rgba(255,255,255,0.1))'
-          }}
-        >
+      <div className="text-center z-10">
+        <h1 className="text-[44px] font-extrabold tracking-tighter mb-2 bg-gradient-to-b from-white to-[#a1a1aa] bg-clip-text text-transparent drop-shadow-md">
           {isRunning && intent ? INTENT_OPTIONS.find(o => o.id === intent)?.label : 'Focus Timer'}
         </h1>
-        <p style={{ fontSize: '15px', color: 'var(--text-muted)' }}>
+        <p className="text-[15px] text-muted">
           {isRunning ? 'Stay focused. You can do this.' : 'Select a subject and intent, then start.'}
         </p>
       </div>
 
-      <div className="glass-panel" style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', maxWidth: '380px', alignItems: 'center', padding: '24px', borderRadius: 'var(--radius-lg)', zIndex: 10 }}>
+      <div className="glass-panel flex flex-col gap-4 w-full max-w-[380px] items-center p-6 rounded-lg z-10">
         {/* Mode Toggle */}
         {!isRunning && (
-          <div style={{ display: 'flex', gap: '8px', padding: '6px', backgroundColor: 'var(--bg-elevated)', borderRadius: 'var(--radius)', border: '1px solid var(--border-subtle)' }}>
+          <div className="flex gap-2 p-1.5 bg-elevated rounded border border-border-subtle">
             <button
               onClick={() => setMode('stopwatch')}
-              style={{
-                padding: '8px 20px', borderRadius: 'calc(var(--radius) - 2px)', border: 'none',
-                fontSize: '14px', fontWeight: 600, cursor: 'pointer',
-                backgroundColor: mode === 'stopwatch' ? 'var(--bg-surface)' : 'transparent',
-                color: mode === 'stopwatch' ? 'var(--text-primary)' : 'var(--text-muted)',
-                boxShadow: mode === 'stopwatch' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
-                transition: 'all 0.2s',
-              }}
+              className={`px-5 py-2 rounded-md font-semibold text-sm transition-all duration-200 border-none cursor-pointer ${mode === 'stopwatch' ? 'bg-surface text-primary shadow-sm' : 'bg-transparent text-muted'}`}
             >
               ⏱️ Stopwatch
             </button>
             <button
               onClick={() => setMode('pomodoro')}
-              style={{
-                padding: '8px 20px', borderRadius: 'calc(var(--radius) - 2px)', border: 'none',
-                fontSize: '14px', fontWeight: 600, cursor: 'pointer',
-                backgroundColor: mode === 'pomodoro' ? 'var(--bg-surface)' : 'transparent',
-                color: mode === 'pomodoro' ? 'var(--text-primary)' : 'var(--text-muted)',
-                boxShadow: mode === 'pomodoro' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
-                transition: 'all 0.2s',
-              }}
+              className={`px-5 py-2 rounded-md font-semibold text-sm transition-all duration-200 border-none cursor-pointer ${mode === 'pomodoro' ? 'bg-surface text-primary shadow-sm' : 'bg-transparent text-muted'}`}
             >
               🍅 Pomodoro
             </button>
@@ -240,16 +200,12 @@ function ClockContent() {
 
         {/* Pomodoro Settings */}
         {!isRunning && mode === 'pomodoro' && (
-          <div className="glass-panel-elevated" style={{ display: 'flex', alignItems: 'center', gap: '12px', width: '100%', padding: '16px 20px', borderRadius: 'var(--radius)', border: '1px solid var(--border)' }}>
-            <span style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>Focus Duration:</span>
+          <div className="glass-panel-elevated flex items-center gap-3 w-full px-5 py-4 rounded border border-border">
+            <span className="text-sm text-secondary">Focus Duration:</span>
             <select
               value={pomodoroMins}
               onChange={(e) => setPomodoroMins(Number(e.target.value))}
-              style={{
-                marginLeft: 'auto', padding: '4px 8px', borderRadius: '4px', border: '1px solid var(--border-subtle)',
-                backgroundColor: 'var(--bg-elevated)', color: 'var(--text-primary)', fontSize: '14px',
-                outline: 'none', cursor: 'pointer'
-              }}
+              className="ml-auto px-2 py-1 rounded bg-elevated text-primary text-sm border border-border-subtle outline-none cursor-pointer"
             >
               {[1, 5, 10, 15, 20, 25, 30, 45, 60, 90, 120].map(min => (
                 <option key={min} value={min}>{min} min</option>
@@ -260,16 +216,12 @@ function ClockContent() {
 
         {/* Stopwatch Goal Settings (Optional) */}
         {!isRunning && mode === 'stopwatch' && (
-          <div className="glass-panel-elevated" style={{ display: 'flex', alignItems: 'center', gap: '12px', width: '100%', padding: '16px 20px', borderRadius: 'var(--radius)', border: '1px solid var(--border)' }}>
-            <span style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>Goal (Optional):</span>
+          <div className="glass-panel-elevated flex items-center gap-3 w-full px-5 py-4 rounded border border-border">
+            <span className="text-sm text-secondary">Goal (Optional):</span>
             <select
               value={stopwatchTargetMins || ''}
               onChange={(e) => setStopwatchTargetMins(e.target.value ? Number(e.target.value) : null)}
-              style={{
-                marginLeft: 'auto', padding: '4px 8px', borderRadius: '4px', border: '1px solid var(--border-subtle)',
-                backgroundColor: 'var(--bg-elevated)', color: 'var(--text-primary)', fontSize: '14px',
-                outline: 'none', cursor: 'pointer'
-              }}
+              className="ml-auto px-2 py-1 rounded bg-elevated text-primary text-sm border border-border-subtle outline-none cursor-pointer"
             >
               <option value="">No goal (Infinite)</option>
               {[5, 10, 15, 20, 25, 30, 45, 60, 90, 120].map(min => (
@@ -282,29 +234,19 @@ function ClockContent() {
         <SubjectSelect value={subjectId} onChange={(id) => setSubject(id)} disabled={isRunning} />
 
         {!isRunning && (
-          <div style={{ width: '100%', position: 'relative' }}>
+          <div className="w-full relative">
             <select
               value={selectedIntent}
               onChange={(e) => setSelectedIntent(e.target.value)}
               disabled={isRunning || !subjectId}
-              className="glass-panel-elevated"
-              style={{
-                width: '100%', padding: '16px 20px', borderRadius: 'var(--radius)',
-                color: selectedIntent ? 'var(--text-primary)' : 'var(--text-muted)',
-                fontSize: '15px', fontWeight: 500, fontFamily: 'inherit', appearance: 'none',
-                WebkitAppearance: 'none', cursor: isRunning || !subjectId ? 'not-allowed' : 'pointer',
-                outline: 'none', transition: 'border-color 0.15s',
-                opacity: !subjectId ? 0.5 : 1
-              }}
-              onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--accent-purple)'; }}
-              onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; }}
+              className={`glass-panel-elevated w-full px-5 py-4 rounded text-[15px] font-medium appearance-none outline-none transition-colors duration-150 focus:border-purple border border-border ${selectedIntent ? 'text-primary' : 'text-muted'} ${isRunning || !subjectId ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
             >
               <option value="" disabled>Select your intent...</option>
               {INTENT_OPTIONS.map((opt) => (
                 <option key={opt.id} value={opt.id}>{opt.label}</option>
               ))}
             </select>
-            <span style={{ position: 'absolute', right: '14px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: 'var(--text-muted)', fontSize: '12px' }}>▾</span>
+            <span className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-muted text-xs">▾</span>
           </div>
         )}
       </div>
@@ -320,38 +262,26 @@ function ClockContent() {
       />
 
       {saveError && (
-        <div style={{
-          maxWidth: '400px', textAlign: 'center', fontSize: '14px',
-          color: 'var(--accent-red)', padding: '10px 16px', borderRadius: 'var(--radius)',
-          backgroundColor: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.25)',
-        }}>
+        <div className="max-w-[400px] text-center text-sm text-red px-4 py-2.5 rounded bg-red-500/10 border border-red-500/25">
           {saveError}
         </div>
       )}
 
       {lastSaved && !isRunning && (
-        <div style={{
-          maxWidth: '400px', textAlign: 'center', fontSize: '14px',
-          color: 'var(--accent-green)', padding: '10px 16px', borderRadius: 'var(--radius)',
-          backgroundColor: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.25)',
-        }}>
+        <div className="max-w-[400px] text-center text-sm text-green px-4 py-2.5 rounded bg-green-500/10 border border-green-500/25">
           ✓ {lastSaved}
         </div>
       )}
 
-      <div style={{ display: 'flex', gap: '16px', zIndex: 10 }}>
+      <div className="flex gap-4 z-10">
         {[
           { href: '/history', label: '📋 History' },
           { href: '/analytics', label: '📊 Analytics' },
         ].map(({ href, label }) => (
-          <Link key={href} href={href} className="glass-panel" style={{
-            padding: '12px 24px', borderRadius: 'var(--radius)',
-            color: 'var(--text-secondary)',
-            fontSize: '14px', textDecoration: 'none', fontWeight: 600,
-            transition: 'all 0.2s',
-          }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-primary)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.borderColor = 'var(--border)'; }}
+          <Link
+            key={href}
+            href={href}
+            className="glass-panel px-6 py-3 rounded text-secondary text-sm no-underline font-semibold transition-all duration-200 hover:text-primary hover:border-white/20"
           >
             {label}
           </Link>

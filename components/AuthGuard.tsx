@@ -16,28 +16,9 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
 
     if (loading) {
         return (
-            <div
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    minHeight: 'calc(100vh - 60px)',
-                    flexDirection: 'column',
-                    gap: '16px',
-                }}
-            >
-                <div
-                    style={{
-                        width: '40px',
-                        height: '40px',
-                        borderRadius: '50%',
-                        border: '3px solid var(--border)',
-                        borderTopColor: 'var(--accent-purple)',
-                        animation: 'spin 0.7s linear infinite',
-                    }}
-                />
-                <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>Loading...</p>
-                <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+            <div className="flex flex-col items-center justify-center min-h-[calc(100vh-60px)] gap-4">
+                <div className="w-10 h-10 rounded-full border-[3px] border-border border-t-purple animate-spin" />
+                <p className="text-muted text-sm">Loading...</p>
             </div>
         );
     }

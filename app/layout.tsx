@@ -12,14 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        style={{
-          minHeight: '100vh',
-          backgroundColor: 'var(--bg-base)',
-          color: 'var(--text-primary)',
-          fontFamily: "'Inter', system-ui, sans-serif",
-        }}
-      >
+      <body className="min-h-screen bg-background text-primary font-sans">
         <div
           style={{
             position: 'fixed',
@@ -32,20 +25,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <AuthProvider>
-            <header
-              style={{
-                position: 'sticky',
-                top: 0,
-                zIndex: 50,
-                borderBottom: '1px solid var(--border-subtle)',
-                backgroundColor: 'var(--bg-glass-nav)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-              }}
-            >
+            <header className="sticky top-0 z-50 border-b border-border-subtle bg-glass-nav backdrop-blur-md">
               <NavBar />
             </header>
-            <div style={{ position: 'relative', zIndex: 1 }}>{children}</div>
+            <div className="relative z-[1]">{children}</div>
           </AuthProvider>
         </ThemeProvider>
       </body>
