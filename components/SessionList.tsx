@@ -175,7 +175,7 @@ export default function SessionList({ sessions, onDelete }: SessionListProps) {
                 flexShrink: 0,
               }}
             >
-              {session.targetDuration != null && (
+              {session.targetDuration != null && session.targetDuration > 0 && (
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <div style={{ width: '40px', height: '6px', backgroundColor: 'var(--bg-elevated)', borderRadius: '3px', overflow: 'hidden' }}>
                     <div style={{
